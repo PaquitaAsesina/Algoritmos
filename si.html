@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <!--    <script src="https://cdn.interactjs.io/v1.10.19/interactjs/index.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script type="module">
+    const players = document.querySelectorAll('.draggable');
+    const field = document.querySelector('.field');
+
+    // Obtener las dimensiones del campo
+    const fieldRect = field.getBoundingClientRect();
+
+    // Itera sobre los elementos y configura solo los jugadores como arrastrables
+    players.forEach(player => {
+      interact(player).draggable({
+        // Habilita el arrastre inercial
+        inertia: true,
+        // Mantén el elemento dentro del área del campo
+        modifiers: [
+          interact.modifiers.restrictRect({
+            restriction: field, // Restringe el arrastre al campo
+            endOnly: true
+          })
+        ],
+        // Habilita el desplazamiento automático
+        autoScroll: true,
+
+        listeners: {
+          // Llama a esta función en cada evento de arrastre (dragmove)
+          move: dragMoveListener,
+
+          // Llama a esta función en cada evento de finalización del arrastre (dragend)
+          end(event) {
+            var textEl = event.target.querySelector('p');
+
+            textEl && (textEl.textContent =
+              'moved a distance of ' +
+              (Math.sqrt(Math.pow(event.pageX - event.x0, 2) +
+                Math.pow(event.pageY - event.y0, 2) | 0))
+                .toFixed(2) + 'px');
+          }
+        }
+      });
+    });
+
+    function dragMoveListener(event) {
+      const playerId = event.target.id;
+      var target = event.target;
+      // Mantén la posición del arrastre en los atributos data-x/data-y
+      var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+      var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+      // Verifica y ajusta para mantener el elemento dentro del campo
+      x = Math.max(0, Math.min(x, fieldRect.width - target.offsetWidth));
+      y = Math.max(0, Math.min(y, fieldRect.height - target.offsetHeight));
+
+      // Traduce el elemento
+      target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+
+      // Actualiza los atributos de posición
+      target.setAttribute('data-x', x);
+      target.setAttribute('data-y', y);
+    }
+
+
+    // // Llama a la función para dibujar conexiones proporcionales
+    //drawProportionalConnections();
+    // Coordenadas iniciales de los jugadores del equipo del usuario
+    const playerCoordinates = {
+      player1: { x: 500, y: 300 }, // Portero
+      player2: { x: 300, y: 100 }, // Defensor
+      player3: { x: 300, y: 500 }, // Defensor
+      player4: { x: 670, y: 100 }, // Defensor
+      player5: { x: 670, y: 500 }, // Defensor
+      player6: { x: 500, y: 100 }, // Centrocampista
+      player7: { x: 500, y: 500 }, // Centrocampista
+      player8: { x: 200, y: 300 }, // Centrocampista
+      player9: { x: 700, y: 320 }, // Delantero
+      player10: { x: 800, y: 300 }, // Delantero
+      player11: { x: 800, y: 400 }, // Delantero
+      // Agrega más jugadores si es necesario
+    };
+
+    // Coordenadas iniciales de los jugadores del equipo rival
+    const rivalPlayerCoordinates = {
+      rival1: { x: 800, y: 250 },
+      rival2: { x: 200, y: 300 },
+      rival3: { x: 280, y: 450 },
+      rival4: { x: 700, y: 100 },
+      rival5: { x: 900, y: 300 },
+      rival6: { x: 700, y: 500 },
+      rival7: { x: 250, y: 200 },
+      rival8: { x: 550, y: 200 },
+      rival9: { x: 450, y: 400 },
+      rival10: { x: 750, y: 400 },
+      rival11: { x: 500, y: 50 },
+    };
+
+    // Función para posicionar a los jugadores en el campo
+    function positionPlayers() {
+      const players = document.querySelectorAll(".player");
+
+
+      players.forEach(player => {
+        const playerId = player.id;
+        const coordinates = playerCoordinates[playerId] || rivalPlayerCoordinates[playerId];
+
+        if (coordinates) {
+          const { x, y } = coordinates;
+          player.style.transform = `translate(${x}px, ${y}px)`;
+          player.setAttribute('data-x', x);
+          player.setAttribute('data-y', y);
+        }
+      });
+      const ballCoordinates = { x: 550, y: 250 };
+      const ballX = ballCoordinates.x || 0;
+      const ballY = ballCoordinates.y || 0;
+      ball.style.transform = `translate(${ballX}px, ${ballY}px)`;
+      ball.setAttribute('data-x', ballX);
+      ball.setAttribute('data-y', ballY);
+    }
+
+    // Llama a la función para posicionar a los jugadores en el campo
+    positionPlayers();
+
+    // Esta función se utiliza más adelante en las demostraciones de cambio de tamaño y gestos
+    window.dragMoveListener = dragMoveListener;
+  </script>
+  </head>
+
+  <body>
+    <div>
+      <img class="img3" src="img/burger.jpeg">
+    </div>
+    <div>
+      <img class="img2" src="img/caliente2.jpeg" alt>
+    </div>
+    <br>
+    <br>
+    <section>
+      <div class="container">
+        <button class="button" id = "btnCalcRoute">Calcular</button>
+      </div>
+      <div class="field">
+        <!-- Jugadores del equipo del usuario -->
+        <div class="player player-user draggable" id="player1">1</div>
+        <div class="player player-user draggable" id="player2">2</div>
+        <div class="player player-user draggable" id="player3">3</div>
+        <div class="player player-user draggable" id="player4">4</div>
+        <div class="player player-user draggable" id="player5">5</div>
+        <div class="player player-user draggable" id="player6">6</div>
+        <div class="player player-user draggable" id="player7">7</div>
+        <div class="player player-user draggable" id="player8">8</div>
+        <div class="player player-user draggable" id="player9">9</div>
+        <div class="player player-user draggable" id="player10">10</div>
+        <div class="player player-user draggable" id="player11">11</div>
+
+        <!-- Jugadores del equipo rival -->
+        <div class="player player-rival draggable" id="rival1">1</div>
+        <div class="player player-rival draggable" id="rival2">2</div>
+        <div class="player player-rival draggable" id="rival3">3</div>
+        <div class="player player-rival draggable" id="rival4">4</div>
+        <div class="player player-rival draggable" id="rival5">5</div>
+        <div class="player player-rival draggable" id="rival6">6</div>
+        <div class="player player-rival draggable" id="rival7">7</div>
+        <div class="player player-rival draggable" id="rival8">8</div>
+        <div class="player player-rival draggable" id="rival9">9</div>
+        <div class="player player-rival draggable" id="rival10">10</div>
+        <div class="player player-rival draggable" id="rival11">11</div>
+
+        <p id="distance"></p>
+        
+        <!-- Balón -->
+        <div class="ball draggable" id="ball"></div>
+
+        <!-- Conexiones -->
+        <canvas id="canvas"></canvas>
+        <canvas id="canvasJugadores"></canvas>
+
+        <div class="portería" id="portería"></div>
+      </div>
+    </section>
+
+    
+    <section>
+      <div>
+        <img src="img/caliente.jpeg" alt>
+      </div>
+        <div>
+            <img class="img4" src="img/PPPub.jpg" alt>
+        </div>
+    </section>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+
+</html>

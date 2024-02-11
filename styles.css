@@ -1,0 +1,163 @@
+body {
+    background-image: url('img/fondo.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 15%;
+    transform: translateY(-50%);
+    padding: 10px;
+}
+
+.button {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  
+    width: 125px;
+    height: 40px;
+    font-size: 20px;
+    font-family: sans-serif;
+  
+    border: 1px solid #fff;
+  
+    transition: background-color 0.5s ease-in-out;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.field {
+    width: 1000px;
+    height: 600px;
+    background: url('img/campo.jpg') center center no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 50%;
+    left: 50%; /* Ajusta según tus necesidades */
+    transform: translate(-50%, -50%);
+    border: 2px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.player {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+    color: white; /* Color del texto para todos los jugadores */
+}
+
+.player-user {
+    background: linear-gradient(to bottom right, #3498db, #2c3e50);
+    border: 2px solid #2980b9;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.8);
+    color: #413535; /* Color del texto para el equipo del usuario */
+}
+
+.player-rival {
+    background: linear-gradient(to bottom right, #e74c3c, #c0392b);
+    border: 2px solid #c0392b;
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.8);
+    color: rgb(35, 42, 42); /*Color del texto para el equipo rival */
+}
+
+.ball {
+    width: 15px;
+    height: 15px;
+    background: white; /* Color del balón */
+    position: absolute;
+    border-radius: 50%; /* Para hacer que el balón sea un círculo */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el balón para indicar que es arrastrable */
+}
+#canvas {
+    width: 100%; /* Establece el ancho del canvas al 100% del contenedor */
+    height: 100%; /* Establece la altura del canvas al 100% del contenedor */
+}
+#canvasJugadores
+{
+    width: 100%; /* Establece el ancho del canvas al 100% del contenedor */
+    height: 100%; /* Establece la altura del canvas al 100% del contenedor */
+}
+
+
+
+div img {
+    max-width: 50%;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+.img2
+{
+    max-width: 50%;
+    text-align: center;
+    padding: 50px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 13%;
+    display: block;
+    margin: 0 auto;
+}
+
+.img3
+{
+    max-width: 15%;
+    text-align: center;
+    padding: 50px;
+    top: -5%;
+    left: 6%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.img4
+{
+    max-width: 15%;
+    text-align: center;
+    padding: 50px;
+    top: -5%;
+    right: -55%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+
+
+section{
+    padding-top:100px ;
+}
+.portería {
+    width: 20px; /* Ancho de la portería */
+    height: 100px; /* Altura de la portería */
+    background-color: red; /* Color de la portería */
+    position: absolute; /* Posiciona absolutamente en el campo */
+    top: 250px; /* Ajusta la posición superior según tus necesidades */
+    left: 940px; /* Ajusta la posición izquierda según tus necesidades */
+}
+
